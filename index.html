@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Query Tracking System</title>
+  <style>
+    body { font-family: Arial; }
+    .container { width: 400px; margin: auto; }
+    input, textarea, select, button {
+      width: 100%;
+      margin: 5px 0;
+      padding: 8px;
+    }
+    .query {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Submit Query</h2>
+
+  <input type="text" id="title" placeholder="Title">
+  <textarea id="desc" placeholder="Description"></textarea>
+
+  <select id="priority">
+    <option>Low</option>
+    <option>Medium</option>
+    <option>High</option>
+  </select>
+
+  <button onclick="addQuery()">Submit</button>
+
+  <h2>Queries</h2>
+  <div id="queryList"></div>
+</div>
+
+<script>
+  let queries = [];
+
+  function addQuery() {
+    let title = document.getElementById("title").value;
+    let desc = document.getElementById("desc").value;
+    let priority = document.getElementById("priority").value;
+
+    let query = {
+      id: queries.length + 1,
+      title,
+      desc,
+      priority,
+      status: "Open"
+    };
+
+    queries.push(query);
+    displayQueries();
+  }
+
+  function displayQueries() {
+    let list = document.getElementById("queryList");
+    list.innerHTML = "";
+
+    queries.forEach(q => {
+      list.innerHTML += `
+        <div class="query">
+          <b>ID:</b> ${q.id} <br>
+          <b>Title:</b> ${q.title} <br>
+          <b>Status:</b> ${q.status} <br>
+          <b>Priority:</b> ${q.priority}
+        </div>
+      `;
+    });
+  }
+</script>
+
+</body>
+</html>
